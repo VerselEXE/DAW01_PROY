@@ -1,0 +1,17 @@
+package org.cibertec.edu.pe.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="producto")
+public class Producto {
+	private int idProd;
+	private int idCat;	
+	private String nombreProd;
+	private double precioProd;
+	private int stockProd;
+	private String descProd;
+	private String imagen;
+	
+}
