@@ -22,12 +22,14 @@ public class ProductoController {
 	private IProductoService servicio;
 	
 	//Metodo para Listar
-	@GetMapping("/productos")
+	@GetMapping("/index")
 	public String Listar(Model m) {
 		List<Producto> lista = servicio.Listado();
 		m.addAttribute("producto", lista);
-		return "productos"; //productos.html
+		return "index"; //productos.html
 	}
+	
+	
 	
 	
 	  @GetMapping("/ver/{id}")
