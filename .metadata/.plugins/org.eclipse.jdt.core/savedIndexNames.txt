@@ -10,7 +10,6 @@ INDEX VERSION 1.134+C:\Users\Usuario\Desktop\proyecto desarrollo de aplicaciones
 2432815621.index
 2678564898.index
 3872531340.index
-2803198237.index
 1852911823.index
 2685335483.index
 3192450799.index
