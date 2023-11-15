@@ -1,4 +1,4 @@
-package org.cibertec.edu.pe.Controller;
+package org.cibertec.edu.pe.controller;
 
 import java.util.List;
 import java.util.Optional;
