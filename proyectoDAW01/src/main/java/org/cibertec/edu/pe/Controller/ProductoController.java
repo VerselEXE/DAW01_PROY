@@ -1,10 +1,9 @@
-package org.cibertec.edu.pe.controller;
+package org.cibertec.edu.pe.Controller;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.cibertec.edu.pe.interfaceServices.IProductoService;
-import org.cibertec.edu.pe.interfaces.IProducto;
 import org.cibertec.edu.pe.model.Producto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 
 @Controller
@@ -22,11 +21,11 @@ public class ProductoController {
 	private IProductoService servicio;
 	
 	//Metodo para Listar
-	@GetMapping("/index")
+	@GetMapping("/producto")
 	public String Listar(Model m) {
 		List<Producto> lista = servicio.Listado();
 		m.addAttribute("producto", lista);
-		return "index"; //productos.html
+		return "productos"; //productos.html
 	}
 	
 	
