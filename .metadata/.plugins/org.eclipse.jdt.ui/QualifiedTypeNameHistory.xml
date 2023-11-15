@@ -4,4 +4,6 @@
     <fullyQualifiedTypeName name="javax.persistence.Table"/>
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
     <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="org.cibertec.edu.pe.ProyectoDaw01Application"/>
+    <fullyQualifiedTypeName name="org.cibertec.edu.pe.model.Producto"/>
 </qualifiedTypeNameHistroy>
