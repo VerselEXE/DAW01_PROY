@@ -18,6 +18,10 @@ public class Usuario {
 	public Usuario() {
 	}
 
+	public Usuario(int idCatUs) {
+		this.idCatUs = idCatUs;
+	}
+
 	public Usuario(int idUs, String nombreUs, String correoUs, String passUs, int idCatUs) {
 		this.idUs = idUs;
 		this.nombreUs = nombreUs;

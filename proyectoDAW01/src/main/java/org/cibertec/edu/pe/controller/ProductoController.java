@@ -58,7 +58,7 @@ public class ProductoController {
 	//Metodo para grabar
 	public String salvar(Producto p, Model m) {
 		servicio.Grabar(p);
-		return "redirect:/productos";
+		return "redirect:/index";
 	}
 	
 	@GetMapping("/eliminar/{id}")
