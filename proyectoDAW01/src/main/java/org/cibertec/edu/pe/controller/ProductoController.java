@@ -1,4 +1,4 @@
-package org.cibertec.edu.pe.Controller;
+package org.cibertec.edu.pe.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,7 +58,7 @@ public class ProductoController {
 	//Metodo para grabar
 	public String salvar(Producto p, Model m) {
 		servicio.Grabar(p);
-		return "redirect:/productos";
+		return "redirect:/index";
 	}
 	
 	@GetMapping("/eliminar/{id}")
