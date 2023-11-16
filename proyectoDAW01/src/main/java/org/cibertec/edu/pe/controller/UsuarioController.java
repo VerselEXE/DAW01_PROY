@@ -32,7 +32,7 @@ public class UsuarioController {
 	
 	@GetMapping("/nuevoUs")	
 	public String agregar(Model m) {
-		m.addAttribute("usuario", new Usuario());
+		m.addAttribute("usuario", new Usuario(2));
 		return "formUs";
 	}
 	

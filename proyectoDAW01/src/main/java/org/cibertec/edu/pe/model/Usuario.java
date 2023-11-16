@@ -13,15 +13,21 @@ public class Usuario {
 	private String nombreUs;
 	private String correoUs;
 	private String passUs;
+	private int idCatUs;
 	
 	public Usuario() {
 	}
 
-	public Usuario(int idUs, String nombreUs, String correoUs, String passUs) {
+	public Usuario(int idCatUs) {
+		this.idCatUs = idCatUs;
+	}
+
+	public Usuario(int idUs, String nombreUs, String correoUs, String passUs, int idCatUs) {
 		this.idUs = idUs;
 		this.nombreUs = nombreUs;
 		this.correoUs = correoUs;
 		this.passUs = passUs;
+		this.idCatUs = idCatUs;
 	}
 
 	public int getIdUs() {
@@ -54,5 +60,13 @@ public class Usuario {
 
 	public void setPassUs(String passUs) {
 		this.passUs = passUs;
+	}
+
+	public int getIdCatUs() {
+		return idCatUs;
+	}
+
+	public void setIdCatUs(int idCatUs) {
+		this.idCatUs = idCatUs;
 	}		
 }
