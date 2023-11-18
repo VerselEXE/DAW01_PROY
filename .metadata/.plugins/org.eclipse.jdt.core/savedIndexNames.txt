@@ -54,8 +54,8 @@ INDEX VERSION 1.134+C:\Users\javal\Desktop\Files\Cibertec\Ciclo V\Desarrollo de 
 1019368383.index
 2957068951.index
 1259250080.index
-4124269461.index
 1114660741.index
+4124269461.index
 1111760548.index
 1184442577.index
 782056360.index
@@ -72,7 +72,6 @@ INDEX VERSION 1.134+C:\Users\javal\Desktop\Files\Cibertec\Ciclo V\Desarrollo de 
 4240415915.index
 2886570637.index
 3825190525.index
-2803198237.index
 1084365409.index
 3498221670.index
 2988506612.index
