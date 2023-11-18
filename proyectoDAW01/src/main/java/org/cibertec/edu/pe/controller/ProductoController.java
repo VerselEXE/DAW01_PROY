@@ -77,7 +77,7 @@ public class ProductoController {
 	    }
 
 	    servicio.Grabar(p);
-	    return "redirect:/index";
+	    return "redirect:/producto";
 	}
 	
 	@GetMapping("/eliminar/{id}")
