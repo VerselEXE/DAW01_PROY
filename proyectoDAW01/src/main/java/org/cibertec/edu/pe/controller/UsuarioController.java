@@ -34,7 +34,7 @@ public class UsuarioController {
 	@GetMapping("/nuevoUs")	
 	public String agregar(Model m) {
 		m.addAttribute("usuario", new Usuario(2));
-		return "formUs";
+		return "formUsUpdate";
 	}
 	
 	@GetMapping("/editarUs/{id}")
@@ -54,5 +54,17 @@ public class UsuarioController {
 	public String eliminar(@PathVariable int id, Model m) {
 		servicio.Suprimir(id);		
 		return "redirect:/listarUs";
+	}
+	
+	//PARA INDEX
+	@GetMapping("/crearUs")
+	public String crearUs(Model m) {
+		m.addAttribute("usuario", new Usuario(2));
+		return "formUs";
+	}
+	@PostMapping("/guardarUs")	
+	public String guardarUs(Usuario u, Model m) {
+		servicio.Grabar(u);
+		return "redirect:/index";
 	}
 }

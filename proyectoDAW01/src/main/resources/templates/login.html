@@ -6,5 +6,28 @@
 	  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
  	</head>
  	<body>
+	
+	<div>
+    <h2>Iniciar Sesión</h2>
+    <form th:action="@{/verificarLog}" th:object="${usuario}" method="post">
+        <label for="correo">Correo:</label>
+        <input type="email" th:field="*{correoUs}">
+
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" th:field="*{passUs}">
+
+        <button type="submit">Login</button>
+    </form>
+	<label th:if="${ooo!=null}">Datos incorrectos</label>
+	<table class="table table-borderless">
+		<tr>
+			<td>¿No tienes una cuenta? <a th:href="@{/crearUs}">Crear cuenta</a></td>
+			<td><a th:href="@{/index}">Regresar al catálogo</a></td>
+		</tr>
+	</table>
+    
+    
+</div>	 
+	
  	</body>
 </html>
