@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UsuarioController {
-	@Autowired IUsuarioService servicio;
+	@Autowired 
+	private IUsuarioService servicio;	
 	
 	@GetMapping("/listarUs")
 	public String Listar(Model m) {
