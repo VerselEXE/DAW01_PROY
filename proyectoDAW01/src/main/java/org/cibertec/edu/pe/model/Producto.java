@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,11 +20,28 @@ public class Producto {
 	private String descProd;
 	private String imagen;
 	
+	@ManyToOne
+	private Usuario usuario;
+	
 	public Producto() {		
 	}
 
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+
 	public Producto(int idProd, int idCat, String nombreProd, double precioProd, int stockProd, String descProd,
-			String imagen) {
+			String imagen, Usuario usuario) {
 		this.idProd = idProd;
 		this.idCat = idCat;
 		this.nombreProd = nombreProd;
@@ -31,7 +49,10 @@ public class Producto {
 		this.stockProd = stockProd;
 		this.descProd = descProd;
 		this.imagen = imagen;
+		this.usuario = usuario;
 	}
+
+
 
 	public int getIdProd() {
 		return idProd;

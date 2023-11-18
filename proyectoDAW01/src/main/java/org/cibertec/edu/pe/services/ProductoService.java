@@ -6,12 +6,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.cibertec.edu.pe.Repository.ProductoRepository;
 import org.cibertec.edu.pe.interfaceServices.IProductoService;
 import org.cibertec.edu.pe.interfaces.IProducto;
 import org.cibertec.edu.pe.model.Producto;
 
 @Service
 public class ProductoService implements IProductoService{
+	
+	
+	
+	@Autowired
+	private ProductoRepository productoRepository;
 	
 	@Autowired
 	private IProducto data;
@@ -42,6 +48,12 @@ public class ProductoService implements IProductoService{
 	public void Suprimir(int id) {
 		
 		data.deleteById(id);
+	}
+
+	@Override
+	public void updateImage(Producto p) {
+		 productoRepository.save(p);
+		
 	}
 	
 }
