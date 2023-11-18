@@ -24,9 +24,7 @@
 							>Información</a></li>
 						<li class="nav-item"><a class="nav-link active" 
 							aria-current="page" th:href="@{/carrito}">Carrito</a></li>
-						<li th:if="${login!=null}" class="nav-item"><a class="nav-link" 
-							th:text="${login}"></a></li>
-						<li th:else class="nav-item"><a class="nav-link" 
+						<li th:if="${login==null}" class="nav-item"><a class="nav-link" 
 							>Login</a></li>
 						<li th:if="${login!=null}" class="nav-item"><a class="nav-link" 
 							th:href="@{/deslogear}">LogOut</a></li>
@@ -43,6 +41,7 @@
 					<thead class="table-primary">
 						<tr>
 							<th>ID</th>
+							<th>CATEGORIA</th>
 							<th class="text-center">PRODUCTO</th>
 							<th>DESCRIPCIÓN</th>
 							<th>PRECIO</th>
@@ -53,14 +52,15 @@
 					</thead>
 					<tbody>
 						<tr th:each="d: ${carrito}" class="align-middle">
-							<td th:text="${d.producto.idProducto}"></td>
+							<td th:text="${d.producto.idProd}"></td>
+							<td th:text="${d.producto.idCat}"></td>
 							<td class="text-center"><img th:src="@{img/} + ${d.producto.imagen}" width="75"></td>
-							<td th:text="${d.producto.descripcion}"></td>
-							<td th:text="${'S/ ' + d.producto.precio}"></td>
+							<td th:text="${d.producto.descProd}"></td>
+							<td th:text="${'S/ ' + d.producto.precioProd}"></td>
 							<td th:text="${d.cantidad}"></td>
 							<td th:text="${'S/ ' + d.subtotal}"></td>
 							<td class="text-center">
-								<a class="btn btn-sm btn-danger" th:href="@{/eliminar/} + ${d.producto.idProducto}">Eliminar</a>
+								<a class="btn btn-sm btn-danger" th:href="@{/eliminar/} + ${d.producto.idProd}">Eliminar</a>
 							</td>
 						</tr>
 					</tbody>
@@ -78,11 +78,7 @@
 						<tr><td>Subtotal:</td></tr>
 						<tr>
 							<td><input type="text" class="form-control fw-bold" th:value="${'S/ ' + subtotal}"></td>
-						</tr>
-						<tr><td>Precio Envío:</td></tr>
-						<tr>
-							<td><input type="text" class="form-control fw-bold" th:value="${'S/ '+ envio}"></td>
-						</tr>
+						</tr>						
 						<tr><td>Descuento:</td></tr>
 						<tr>
 							<td><input type="text" class="form-control fw-bold" th:value="${'S/ ' + desc}"></td>
@@ -96,7 +92,7 @@
 						<tr>						
 						    <td class="text-center px-3">
 						        <form th:action="@{/actualizarCarrito}" method="post">
-						            <button type="submit" class="btn btn-danger w-100">Calcular Envio y Descuento</button>
+						            <button type="submit" class="btn btn-danger w-100">Calcular Descuento</button>
 						        </form>
 						    </td>
 						</tr>
