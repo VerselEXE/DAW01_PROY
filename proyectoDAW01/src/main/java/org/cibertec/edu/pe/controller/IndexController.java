@@ -80,6 +80,7 @@ public class IndexController {
 	@GetMapping("/deslogear")
 	public String Deslogear(RedirectAttributes r) {		
 		r.addFlashAttribute("login",null);
+		r.addFlashAttribute("idLogeo", 0);
 		return "redirect:/index";
 	}
 	
@@ -175,15 +176,15 @@ public class IndexController {
 		if(usuario!=null) {
 			int tamano;
 			double montoTotal = (double)m.getAttribute("total");
-			List<Detalle> carrito = (List<Detalle>)m.getAttribute("carrito");		
+			List<Detalle> carrito = (List<Detalle>)m.getAttribute("carrito");			
+			
+			tamano = (int)ventaRepo.count()+1;
 			
 			for(Detalle d : carrito) {
-				detalleRepo.save(d);			
-			}
-			tamano = (int)ventaRepo.count();
-			
-			
-			
+				d.setIdVenta(tamano);
+				detalleRepo.save(d);		
+			}			
+									
 			Venta venta = new Venta(tamano, new Date(), montoTotal, idLogeo);
 			ventaRepo.save(venta);
 			return "redirect:/index";
@@ -226,7 +227,7 @@ public class IndexController {
 		}
 		if(existe && correcto) {
 			m.addAttribute("login",usuarioBuscado.getNombreUs());
-			m.addAttribute("idLogeo",usuarioBuscado.getIdCatUs());
+			m.addAttribute("idLogeo",usuarioBuscado.getIdUs());
 			vista = "redirect:/index";
 		}else if(existe) {
 			//mostrar mensaje de error en el login

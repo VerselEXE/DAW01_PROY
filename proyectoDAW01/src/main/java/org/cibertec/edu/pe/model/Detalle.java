@@ -20,9 +20,9 @@ public class Detalle {
 	@JoinColumn(name = "idProd")
 	private Producto producto;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "idVenta")
-	private Venta venta;
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "idVenta")
+	private int idVenta;
 	
 	private int cantidad;
 	private double subtotal;
@@ -30,10 +30,10 @@ public class Detalle {
 	public Detalle() {
 	}
 
-	public Detalle(int idDetalle, Producto producto, Venta venta, int cantidad, double subtotal) {
+	public Detalle(int idDetalle, Producto producto, int idVenta, int cantidad, double subtotal) {
 		this.idDetalle = idDetalle;
 		this.producto = producto;
-		this.venta = venta;
+		this.idVenta = idVenta;
 		this.cantidad = cantidad;
 		this.subtotal = subtotal;
 	}
@@ -54,12 +54,12 @@ public class Detalle {
 		this.producto = producto;
 	}
 
-	public Venta getVenta() {
-		return venta;
+	public int getIdVenta() {
+		return idVenta;
 	}
 
-	public void setVenta(Venta venta) {
-		this.venta = venta;
+	public void setIdVenta(int idVenta) {
+		this.idVenta = idVenta;
 	}
 
 	public int getCantidad() {
