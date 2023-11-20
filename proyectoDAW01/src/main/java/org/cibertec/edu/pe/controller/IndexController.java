@@ -228,7 +228,10 @@ public class IndexController {
 		if(existe && correcto) {
 			m.addAttribute("login",usuarioBuscado.getNombreUs());
 			m.addAttribute("idLogeo",usuarioBuscado.getIdUs());
-			vista = "redirect:/index";
+			if(usuarioBuscado.getIdCatUs()==1)
+				vista = "gestionCrud";
+			else
+				vista = "redirect:/index";
 		}else if(existe) {
 			//mostrar mensaje de error en el login
 			m.addAttribute("ooo", "aaa");			
@@ -237,4 +240,8 @@ public class IndexController {
 		return vista;
 	}		
 	
+	@GetMapping("/gestionCrud")
+	public String gestionCrud(Model m) {
+		return "gestionCrud";
+	}
 }
