@@ -147,7 +147,7 @@ public class IndexController {
 		return "carrito";
 	}
 	
-	@GetMapping("/eliminar/{idProducto}")
+	@GetMapping("/eliminarCarrito/{idProd}")
 	public String eliminar(Model model,@PathVariable(name="idProd",required = true) int idProd) {
 		int index=0;		
 		double costoQuitado,nuevoSubTotal=0.0;
@@ -159,7 +159,7 @@ public class IndexController {
 		}
 		costoQuitado = carrito.get(index).getSubtotal();
 		nuevoSubTotal = (double)model.getAttribute("subtotal")-costoQuitado;
-		carrito.remove(index);
+		carrito.remove(index);		
 		model.addAttribute("carrito", carrito);
 		model.addAttribute("subtotal", nuevoSubTotal);
 		
@@ -229,6 +229,7 @@ public class IndexController {
 			m.addAttribute("idLogeo",usuarioBuscado.getIdCatUs());
 			vista = "redirect:/index";
 		}else if(existe) {
+			//mostrar mensaje de error en el login
 			m.addAttribute("ooo", "aaa");			
 		}
 			

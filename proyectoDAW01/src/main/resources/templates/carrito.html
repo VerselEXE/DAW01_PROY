@@ -60,7 +60,7 @@
 							<td th:text="${d.cantidad}"></td>
 							<td th:text="${'S/ ' + d.subtotal}"></td>
 							<td class="text-center">
-								<a class="btn btn-sm btn-danger" th:href="@{/eliminar/} + ${d.producto.idProd}">Eliminar</a>
+								<a class="btn btn-sm btn-danger" th:href="@{/eliminarCarrito/} + ${d.producto.idProd}">Eliminar</a>
 							</td>
 						</tr>
 					</tbody>
