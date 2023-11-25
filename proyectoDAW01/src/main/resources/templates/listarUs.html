@@ -16,7 +16,8 @@
 						<th>NOMBRE</th>
 						<th>CORREO</th>
 						<th>CONTRASEÑA</th>
-						<th>OPCIONES</th>
+						<th>TIPO USUARIO</th>
+						<th>OPCIONES</th>						
 					</tr>
 				</thead>
 				<tbody>
@@ -24,7 +25,8 @@
 						<td th:text="${reg.idUs}"></td>
 						<td th:text="${reg.nombreUs}"></td>
 						<td th:text="${reg.correoUs}"></td>
-						<td th:text="${reg.passUs}"></td>						
+						<td th:text="${reg.passUs}"></td>
+						<td th:text="${reg.idCatUs}"></td>							
 						<td>
 							<a th:href="@{/verUs/}+${reg.idUs}" class="btn btn-primary">Ver</a>
 							<a th:href="@{/editarUs/}+${reg.idUs}" class="btn btn-primary">Editar</a>

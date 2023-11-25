@@ -28,13 +28,17 @@
 							<div class="form-group">
 								<label><b>CONTRASEÑA</b></label>
 								<input type="text" th:field="*{passUs}" class="form-control" readonly/>
-							</div>							
+							</div>
+							<div class="form-group">
+								<label><b>TIPO USUARIO</b></label>														
+								<input type="text" th:field="*{idCatUs}" class="form-control" readonly/>								
+							</div>					
 						</div>
 						<div class="card-footer">
 							<a href="/listarUs" class="btn btn-primary">Regresar al Listado</a>
 						</div>
 					</div>
-				</form>
+				</form>								
 			</div>
 		</div>
 	</body>

@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UsuarioController {
-	@Autowired IUsuarioService servicio;
+	@Autowired 
+	private IUsuarioService servicio;	
 	
 	@GetMapping("/listarUs")
 	public String Listar(Model m) {
@@ -32,8 +33,8 @@ public class UsuarioController {
 	
 	@GetMapping("/nuevoUs")	
 	public String agregar(Model m) {
-		m.addAttribute("usuario", new Usuario());
-		return "formUs";
+		m.addAttribute("usuario", new Usuario(2));
+		return "formUsUpdate";
 	}
 	
 	@GetMapping("/editarUs/{id}")
@@ -53,5 +54,17 @@ public class UsuarioController {
 	public String eliminar(@PathVariable int id, Model m) {
 		servicio.Suprimir(id);		
 		return "redirect:/listarUs";
+	}
+	
+	//PARA INDEX
+	@GetMapping("/crearUs")
+	public String crearUs(Model m) {
+		m.addAttribute("usuario", new Usuario(2));
+		return "formUs";
+	}
+	@PostMapping("/guardarUs")	
+	public String guardarUs(Usuario u, Model m) {
+		servicio.Grabar(u);
+		return "redirect:/index";
 	}
 }
