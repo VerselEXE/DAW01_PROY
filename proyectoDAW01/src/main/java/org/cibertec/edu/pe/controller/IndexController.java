@@ -80,6 +80,7 @@ public class IndexController {
 	@GetMapping("/deslogear")
 	public String Deslogear(RedirectAttributes r) {		
 		r.addFlashAttribute("login",null);
+		r.addFlashAttribute("idLogeo", 0);
 		return "redirect:/index";
 	}
 	
@@ -147,7 +148,7 @@ public class IndexController {
 		return "carrito";
 	}
 	
-	@GetMapping("/eliminar/{idProducto}")
+	@GetMapping("/eliminarCarrito/{idProd}")
 	public String eliminar(Model model,@PathVariable(name="idProd",required = true) int idProd) {
 		int index=0;		
 		double costoQuitado,nuevoSubTotal=0.0;
@@ -159,7 +160,7 @@ public class IndexController {
 		}
 		costoQuitado = carrito.get(index).getSubtotal();
 		nuevoSubTotal = (double)model.getAttribute("subtotal")-costoQuitado;
-		carrito.remove(index);
+		carrito.remove(index);		
 		model.addAttribute("carrito", carrito);
 		model.addAttribute("subtotal", nuevoSubTotal);
 		
@@ -175,15 +176,15 @@ public class IndexController {
 		if(usuario!=null) {
 			int tamano;
 			double montoTotal = (double)m.getAttribute("total");
-			List<Detalle> carrito = (List<Detalle>)m.getAttribute("carrito");		
+			List<Detalle> carrito = (List<Detalle>)m.getAttribute("carrito");			
+			
+			tamano = (int)ventaRepo.count()+1;
 			
 			for(Detalle d : carrito) {
-				detalleRepo.save(d);			
-			}
-			tamano = (int)ventaRepo.count();
-			
-			
-			
+				d.setIdVenta(tamano);
+				detalleRepo.save(d);		
+			}			
+									
 			Venta venta = new Venta(tamano, new Date(), montoTotal, idLogeo);
 			ventaRepo.save(venta);
 			return "redirect:/index";
@@ -230,13 +231,21 @@ public class IndexController {
 		}
 		if(existe && correcto) {
 			m.addAttribute("login",usuarioBuscado.getNombreUs());
-			m.addAttribute("idLogeo",usuarioBuscado.getIdCatUs());
-			vista = "redirect:/index";
+			m.addAttribute("idLogeo",usuarioBuscado.getIdUs());
+			if(usuarioBuscado.getIdCatUs()==1)
+				vista = "gestionCrud";
+			else
+				vista = "redirect:/index";
 		}else if(existe) {
+			//mostrar mensaje de error en el login
 			m.addAttribute("ooo", "aaa");			
 		}
 			
 		return vista;
 	}		
 	
+	@GetMapping("/gestionCrud")
+	public String gestionCrud(Model m) {
+		return "gestionCrud";
+	}
 }
