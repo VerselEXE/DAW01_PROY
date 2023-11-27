@@ -78,9 +78,11 @@ public class IndexController {
 	}
 	
 	@GetMapping("/deslogear")
-	public String Deslogear(RedirectAttributes r) {		
+	public String Deslogear(RedirectAttributes r, Model m) {		
 		r.addFlashAttribute("login",null);
 		r.addFlashAttribute("idLogeo", 0);
+		m.addAttribute("login",null);
+		m.addAttribute("idLogeo", 0);
 		return "redirect:/index";
 	}
 	
