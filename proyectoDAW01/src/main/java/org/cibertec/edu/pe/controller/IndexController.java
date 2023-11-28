@@ -4,6 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.sql.DataSource;
+import javax.transaction.Transactional;
+
+//Reporte
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+
 import org.cibertec.edu.pe.interfaceServices.IProductoService;
 import org.cibertec.edu.pe.interfaces.IDetalle;
 import org.cibertec.edu.pe.interfaces.IProducto;
@@ -14,12 +29,16 @@ import org.cibertec.edu.pe.model.Producto;
 import org.cibertec.edu.pe.model.Usuario;
 import org.cibertec.edu.pe.model.Venta;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -250,4 +269,37 @@ public class IndexController {
 	public String gestionCrud(Model m) {
 		return "gestionCrud";
 	}
+	
+	//REPORTE JASPER
+	@GetMapping("/reporte")
+	@ResponseBody
+    public ResponseEntity<InputStreamResource> reporte() throws IOException {
+        File file = new File("C:\\informes jasper\\ReporteVentas.pdf");
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=" + file.getName())
+                .contentType(MediaType.APPLICATION_PDF)
+                .contentLength(file.length())
+                .body(resource);
+    }
+	
+	@Autowired
+    private DataSource dataSource;
+
+    @Transactional
+    public void generateReport() {
+        try (Connection conn = dataSource.getConnection()) {
+            conn.setAutoCommit(false);
+            
+            JasperReport report = JasperCompileManager.compileReport("C:\\informes jasper\\ReporteProyectoDAW1.jrxml");
+
+            JasperPrint print = JasperFillManager.fillReport(report, null, conn);
+
+            // Exporta el informe a PDF
+            JasperExportManager.exportReportToPdfFile(print, "C:\\informes jasper\\ReporteVentas.pdf");            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
