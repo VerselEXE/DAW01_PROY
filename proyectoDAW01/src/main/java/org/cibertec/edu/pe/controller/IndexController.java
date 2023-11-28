@@ -14,9 +14,12 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Connection;
 
 import org.cibertec.edu.pe.interfaceServices.IProductoService;
@@ -30,6 +33,7 @@ import org.cibertec.edu.pe.model.Usuario;
 import org.cibertec.edu.pe.model.Venta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -270,36 +274,42 @@ public class IndexController {
 		return "gestionCrud";
 	}
 	
-	//REPORTE JASPER
+	//REPORTE JASPER		
 	@GetMapping("/reporte")
 	@ResponseBody
-    public ResponseEntity<InputStreamResource> reporte() throws IOException {
-        File file = new File("C:\\informes jasper\\ReporteVentas.pdf");
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+	public ResponseEntity<InputStreamResource> reporte() throws IOException {
+	    try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+	        generateReport(byteArrayOutputStream);
+	        InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
 
-        return ResponseEntity.ok()
-                .header("Content-Disposition", "attachment; filename=" + file.getName())
-                .contentType(MediaType.APPLICATION_PDF)
-                .contentLength(file.length())
-                .body(resource);
-    }
-	
+	        return ResponseEntity.ok()
+	                .header("Content-Disposition", "attachment; filename=ReporteVentas.pdf")
+	                .contentType(MediaType.APPLICATION_PDF)
+	                .contentLength(byteArrayOutputStream.size())
+	                .body(resource);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Manejar el error según sea necesario
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+	    }
+	}
+
 	@Autowired
-    private DataSource dataSource;
+	private DataSource dataSource;
 
-    @Transactional
-    public void generateReport() {
-        try (Connection conn = dataSource.getConnection()) {
-            conn.setAutoCommit(false);
-            
-            JasperReport report = JasperCompileManager.compileReport("C:\\informes jasper\\ReporteProyectoDAW1.jrxml");
+	private void generateReport(OutputStream outputStream) {
+	    try (Connection conn = dataSource.getConnection()) {
+	        conn.setAutoCommit(false);
 
-            JasperPrint print = JasperFillManager.fillReport(report, null, conn);
+	        JasperReport report = JasperCompileManager.compileReport("C:\\informes jasper\\ReporteProyectoDAW1.jrxml");
 
-            // Exporta el informe a PDF
-            JasperExportManager.exportReportToPdfFile(print, "C:\\informes jasper\\ReporteVentas.pdf");            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	        JasperPrint print = JasperFillManager.fillReport(report, null, conn);
+
+	        // Exporta el informe a PDF
+	        JasperExportManager.exportReportToPdfStream(print, outputStream);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
 }
